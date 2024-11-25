@@ -16,6 +16,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   password      String?
+  role          Role @default(STUDENT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -56,3 +57,8 @@ model VerificationToken {
   email      String
 }
  
+enum Role {
+  ADMIN
+  INSTRUCTOR
+  STUDENT
+}

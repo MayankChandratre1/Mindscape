@@ -5,8 +5,12 @@ import bcryptjs from "bcryptjs"
 import { handleError } from "../utils/error.util"
 import { generateVerificationToken } from "../utils/verify.util"
 import { sendVerificationEmail } from "../email"
+import zod from "zod"
+import { registerInputSchema } from "../schemas"
 
-export const register = async (name:string, email: string, password: string) => {
+export const register = async (data: zod.infer<typeof registerInputSchema>) => {
+    
+    const {email, name, password, role} = data
     try{
         //Check if an user already exists or not
         const existingUser = await prisma.user.findFirst({
@@ -21,7 +25,8 @@ export const register = async (name:string, email: string, password: string) => 
             data:{
                 email,
                 name,
-                password: await bcryptjs.hash(password, 12) 
+                password: await bcryptjs.hash(password, 12) ,
+                role
             }
         })
 
@@ -33,9 +38,13 @@ export const register = async (name:string, email: string, password: string) => 
          await sendVerificationEmail(email, verificationToken.token);
        }
 
-        return user
+        return {
+            success: "Successfully Created User!!",
+            user,
+            error: ""
+        }
     }catch(error){
-        handleError("PRISMA")
+       return handleError("PRISMA", JSON.stringify(error))
     }
 }
 

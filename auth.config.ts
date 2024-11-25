@@ -9,7 +9,6 @@ import { signinInputSchema } from "./lib/schemas";
 
 
 export default {
-    adapter: PrismaAdapter(prisma),
     providers: [Credentials({
         async authorize(credentials){
             const verifiedCreds =  signinInputSchema.safeParse(credentials)
@@ -24,7 +23,8 @@ export default {
                         emailVerified: true,
                         name: true,
                         image: true,
-                        password: true
+                        password: true,
+                        role: true
                     }
                 })
                 if(!user) return null
@@ -32,6 +32,7 @@ export default {
                 if(passwordMatch) return user
             }
             return null
-        }
+        },
+        
     })],
 } satisfies NextAuthConfig

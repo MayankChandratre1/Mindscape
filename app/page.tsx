@@ -10,9 +10,12 @@ import steps from "@/components/landingpage/steps";
 import StepCard from "@/components/landingpage/StepCard";
 import TestimonialsComponent from "@/components/landingpage/TestimonialsComponent";
 import {Linkedin , Github, Twitter } from "lucide-react"
+import { useRouter } from "next/navigation";
 
 
 export default function Home() {
+  const router = useRouter()
+  const redirect = (url:string) => router.push(url)
   return (
     <div className="min-h-screen overflow-x-hidden bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300">
       <header className=" shadow-xl flex items-center justify-between px-5 py-3  fixed top-0 left-0 backdrop-blur-lg w-full ">
@@ -21,7 +24,9 @@ export default function Home() {
           <h1 className="text-sm md:text-3xl">Mindscape</h1>
         </motion.div>
         <motion.div className="flex items-center">
-          <Button className="max-md:text-sm bg-blue-500 hover:bg-blue-900">Login</Button>
+          <Button onClick={()=>{
+            redirect("/auth/login")
+          }} className="max-md:text-sm bg-blue-500 hover:bg-blue-900">Login</Button>
         </motion.div>
       </header>
       <main className="px-5 md:px-10 pt-32">
@@ -32,9 +37,13 @@ export default function Home() {
                 <p className="text-blue-600 font-bold italic max-md:inline-block">{" "}Modern Way.</p>
               </h1>
               <div className="max-md:hidden justify-center items-center my-3 md:my-10">
-                <Button className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Be an Intructor</Button>
+                <Button onClick={()=>{
+            redirect("/auth/register")
+          }} className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Be an Intructor</Button>
                 -OR-
-                <Button className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Enroll in a course</Button>
+                <Button onClick={()=>{
+            redirect("/auth/register")
+          }} className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Enroll in a course</Button>
               </div>
               <div className="flex gap-3 max-md:text-center">
                 <div className="p-3">
@@ -57,9 +66,13 @@ export default function Home() {
             }}>
               <Image alt="gif" src={Hero} width={200} height={200} className="w-full rounded-xl shadow-xl" />
               <div className="md:hidden flex justify-center items-center my-8 md:my-10">
-                <Button className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Be an Intructor</Button>
+                <Button onClick={()=>{
+            redirect("/auth/register")
+          }} className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Be an Intructor</Button>
                 -OR-
-                <Button className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Enroll in a course</Button>
+                <Button onClick={()=>{
+            redirect("/auth/register")
+          }} className="bg-blue-600 hover:text-white hover:bg-blue-900 hover:scale-95 active:scale-90 rounded-full md:mx-2">Enroll in a course</Button>
               </div>
             </motion.div>
         </section>

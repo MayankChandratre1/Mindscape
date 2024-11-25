@@ -15,5 +15,9 @@ export const registerInputSchema = zod.object({
       .max(10, "Password must not exceed 10 characters")
       .regex(/[a-z]/, "Password must include at least one lowercase letter")
       .regex(/[A-Z]/, "Password must include at least one uppercase letter")
-      .regex(/\d/, "Password must include at least one digit")
+      .regex(/\d/, "Password must include at least one digit"),
+      role: zod.enum(["INSTRUCTOR", "STUDENT"], {
+        required_error: "Role is required",
+        invalid_type_error: "Role must be either INSTRUCTOR or STUDENT",
+      }),
 });
